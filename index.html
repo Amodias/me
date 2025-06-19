@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saïd Amokrane BELGACEM - Développeur Full Stack</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', 'Courier New', monospace;
+            background-color: #2A2F36;
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-weight: 400;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Terminal-like borders */
+        .terminal-border {
+            border: 1px solid #ffffff;
+            background-color: #2A2F36;
+        }
+
+        /* Header */
+        header {
+            background-color: #2A2F36;
+            border-bottom: 1px solid #ffffff;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .wolf-logo {
+            width: 30px;
+            height: 30px;
+            margin-right: 15px;
+            fill: #ffffff;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-weight: 400;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border: 1px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border: 1px solid #ffffff;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: left;
+            position: relative;
+            padding-top: 80px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .hero-content .prompt {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: typewriter 1s ease 0.5s forwards;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0;
+            animation: typewriter 1s ease 1s forwards;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            opacity: 0;
+            animation: typewriter 1s ease 1.5s forwards;
+        }
+
+        .hero-devices {
+            display: flex;
+            gap: 2rem;
+            margin-top: 3rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 2s forwards;
+        }
+
+        .device-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .device-icon {
+            width: 60px;
+            height: 60px;
+            stroke: #ffffff;
+            stroke-width: 1;
+            fill: none;
+            transition: all 0.3s ease;
+        }
+
+        .device-icon:hover {
+            stroke: #ffffff;
+            filter: brightness(0.8);
+        }
+
+        .device-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Sections */
+        section {
+            padding: 4rem 0;
+            border-top: 1px solid #ffffff;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 3rem;
+            color: #ffffff;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .section-title::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+
+        /* Terminal-style content blocks */
+        .terminal-block {
+            background-color: #2A2F36;
+            border: 1px solid #ffffff;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        .terminal-title {
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .terminal-date {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-category {
+            background-color: #2A2F36;
+            border: 1px solid #ffffff;
+            padding: 1.5rem;
+        }
+
+        .skill-category h3 {
+            color: #ffffff;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .skill-list {
+            list-style: none;
+        }
+
+        .skill-list li {
+            padding: 0.3rem 0;
+            font-size: 0.9rem;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .skill-list li::before {
+            content: '-';
+            position: absolute;
+            left: 0;
+            color: #ffffff;
+        }
+
+        /* Experience */
+        .experience-item {
+            background-color: #2A2F36;
+            border: 1px solid #ffffff;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .experience-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #ffffff;
+        }
+
+        .experience-title {
+            color: #ffffff;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .experience-company {
+            color: #ffffff;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 0.3rem;
+        }
+
+        .experience-date {
+            color: #ffffff;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            text-align: right;
+        }
+
+        .experience-description {
+            color: #ffffff;
+            line-height: 1.7;
+            font-size: 0.9rem;
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background-color: #2A2F36;
+            border: 1px solid #ffffff;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-card:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .project-title {
+            color: #ffffff;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .project-tech {
+            color: #ffffff;
+            font-size: 0.8rem;
+            margin-bottom: 1rem;
+            opacity: 0.7;
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Contact */
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            background-color: #2A2F36;
+            border: 1px solid #ffffff;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 1rem;
+            stroke: #ffffff;
+            fill: none;
+        }
+
+        .contact-item h3 {
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #2A2F36;
+            border-top: 1px solid #ffffff;
+            text-align: center;
+            padding: 2rem 0;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        @keyframes typewriter {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Cursor effect */
+        .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1.2em;
+            background-color: #ffffff;
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-devices {
+                gap: 1.5rem;
+            }
+
+            .device-icon {
+                width: 50px;
+                height: 50px;
+            }
+
+            .experience-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .experience-date {
+                text-align: left;
+            }
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #2A2F36;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ffffff;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">
+                <svg class="wolf-logo" viewBox="0 0 24 24">
+                    <path d="M12 2C13.1 2 14 2.9 14 4C14 5.1 13.1 6 12 6C10.9 6 10 5.1 10 4C10 2.9 10.9 2 12 2M21 9V7L15 1L9 7V9C9 10 9.7 10.7 10.7 10.9L12 17L13.3 10.9C14.3 10.7 15 10 15 9M7 10.5C7 10.1 7.4 9.7 7.8 9.7S8.5 10.1 8.5 10.5C8.5 10.9 8.1 11.3 7.7 11.3S7 10.9 7 10.5M16.5 10.5C16.5 10.1 16.9 9.7 17.3 9.7S18 10.1 18 10.5C18 10.9 17.6 11.3 17.2 11.3S16.5 10.9 16.5 10.5M7.5 12C7.5 11.6 7.9 11.2 8.3 11.2S9 11.6 9 12C9 12.4 8.6 12.8 8.2 12.8S7.5 12.4 7.5 12M16.5 12C16.5 11.6 16.9 11.2 17.3 11.2S18 11.6 18 12C18 12.4 17.6 12.8 17.2 12.8S16.5 12.4 16.5 12"/>
+                </svg>
+                AMODIAS.DEV
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">ABOUT</a></li>
+                <li><a href="#skills">SKILLS</a></li>
+                <li><a href="#experience">EXPERIENCE</a></li>
+                <li><a href="#projects">PROJECTS</a></li>
+                <li><a href="#contact">CONTACT</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="prompt">user@amodias:~$ whoami</div>
+                <h1>SAÏD AMOKRANE BELGACEM</h1>
+                <div class="subtitle">FULL STACK DEVELOPER | SYSTEMS ARCHITECT<span class="cursor"></span></div>
+                <div class="hero-devices">
+                    <div class="device-container">
+                        <svg class="device-icon" viewBox="0 0 24 24">
+                            <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                            <line x1="12" y1="18" x2="12.01" y2="18"/>
+                        </svg>
+                        <div class="device-label">MOBILE</div>
+                    </div>
+                    <div class="device-container">
+                        <svg class="device-icon" viewBox="0 0 24 24">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                        <div class="device-label">DESKTOP</div>
+                    </div>
+                    <div class="device-container">
+                        <svg class="device-icon" viewBox="0 0 24 24">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="2" y1="20" x2="22" y2="20"/>
+                        </svg>
+                        <div class="device-label">WEB</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2 class="section-title">ABOUT</h2>
+            <div class="terminal-block">
+                <div class="terminal-header">
+                    <span class="terminal-title">PROFILE.TXT</span>
+                    <span class="terminal-date">2024-06-19</span>
+                </div>
+                <p>Diplômé de CESI EXIA en Manager des Systèmes d'Information. Développeur full stack avec expertise en développement web et mobile. Spécialisé dans les architectures scalables, les solutions SaaS multitenantes, et les applications haute performance.</p>
+                <br>
+                <p>Technologies principales : Laravel/PHP, React/React Native, PostgreSQL/MySQL, APIs REST, architectures microservices.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">SKILLS</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3>BACKEND</h3>
+                    <ul class="skill-list">
+                        <li>Laravel Framework</li>
+                        <li>PHP 8.x</li>
+                        <li>MySQL / PostgreSQL</li>
+                        <li>REST APIs</li>
+                        <li>Middleware & Queues</li>
+                        <li>Service Providers</li>
+                        <li>SaaS Architecture</li>
+                        <li>Multitenancy</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>FRONTEND</h3>
+                    <ul class="skill-list">
+                        <li>React.js</li>
+                        <li>Next.js</li>
+                        <li>JavaScript ES6+</li>
+                        <li>TypeScript</li>
+                        <li>Redux / Context API</li>
+                        <li>React Query</li>
+                        <li>Tailwind CSS</li>
+                        <li>HTML5 / CSS3</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>MOBILE & DESKTOP</h3>
+                    <ul class="skill-list">
+                        <li>React Native</li>
+                        <li>Electron</li>
+                        <li>SQLite</li>
+                        <li>WatermelonDB</li>
+                        <li>Offline Sync</li>
+                        <li>Geolocation</li>
+                        <li>Bluetooth Printing</li>
+                        <li>Push Notifications</li>
+                    </ul>
+                </div>
+                <div class="skill-category">
+                    <h3>DEVOPS & TOOLS</h3>
+                    <ul class="skill-list">
+                        <li>Git / GitHub / GitLab</li>
+                        <li>Git Actions</li>
+                        <li>Jira / Scrum</li>
+                        <li>Agile Methodology</li>
+                        <li>Apache Configuration</li>
+                        <li>Database Migration</li>
+                        <li>API Integration</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="container">
+            <h2 class="section-title">EXPERIENCE</h2>
+            
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">DÉVELOPPEUR FULL STACK</div>
+                        <div class="experience-company">SARL MEDJ DISTRIBUTION</div>
+                    </div>
+                    <div class="experience-date">JAN 2024 - PRÉSENT</div>
+                </div>
+                <div class="experience-description">
+                    Développement d'un ERP de gestion de distribution avec architecture scalable. Responsable du développement backend et frontend, ainsi que de l'application mobile React Native pour agents commerciaux. Implémentation du système de rôles/permissions, synchronisation offline/online, géolocalisation des clients, et optimisation pour grandes quantités de données. Participation aux réunions stratégiques et présentations investisseurs.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">DÉVELOPPEUR FULL STACK</div>
+                        <div class="experience-company">WHITE BAY LIMITED</div>
+                    </div>
+                    <div class="experience-date">JAN 2023 - DÉC 2023</div>
+                </div>
+                <div class="experience-description">
+                    Refonte complète d'un site e-commerce B2B sur PrestaShop avec modification de modules Symfony. Migration de connecteur C# (Sage ERP) vers PrestaShop 8. Développement frontend d'un ERP de production avec optimisation pour grandes données. Transformation d'un site de location de voitures en solution SaaS multitenante avec séparation des bases de données et gestion des sous-domaines Apache.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">DÉVELOPPEUR FULL STACK - STAGIAIRE</div>
+                        <div class="experience-company">INTIC HOSTING</div>
+                    </div>
+                    <div class="experience-date">DÉC 2021 - AVR 2022</div>
+                </div>
+                <div class="experience-description">
+                    Développement d'une plateforme web et mobile de vente en ligne avec fonctionnalités de réseau social. Implémentation de messagerie instantanée en temps réel et système de stories. Stack technique : Laravel backend, React frontend, React Native mobile.
+                </div>
+            </div>
+
+            <div class="experience-item">
+                <div class="experience-header">
+                    <div>
+                        <div class="experience-title">DÉVELOPPEUR FULL STACK - STAGIAIRE</div>
+                        <div class="experience-company">REVEXN</div>
+                    </div>
+                    <div class="experience-date">NOV 2020 - FÉV 2021</div>
+                </div>
+                <div class="experience-description">
+                    Création d'un site e-commerce pour entreprise de linge de maison. Développement du système de gestion des commandes avec workflow de confirmation et traitement automatisé. Intégration de passerelles de paiement et optimisation de l'expérience utilisateur.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">PROJECTS</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3 class="project-title">CDÉNÉ RECRUTEMENT</h3>
+                    <p class="project-tech">Next.js | PostgreSQL | API REST</p>
+                    <p class="project-description">Plateforme de recrutement avec espaces dédiés entreprises et candidats. Système de matching automatique, gestion des candidatures, et tableau de bord analytique. Architecture SSR pour optimisation SEO.</p>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">DZ SALES QUALITY</h3>
+                    <p class="project-tech">React (Electron) | Laravel | MySQL</p>
+                    <p class="project-description">Solution complète de gestion des ventes et stocks. Interface web pour administration, logiciel de caisse desktop connecté, synchronisation temps réel, gestion multi-magasins et reporting avancé.</p>
+                </div>
+
+                <div class="project-card">
+                    <h3 class="project-title">CHESSGAME</h3>
+                    <p class="project-tech">React | NestJS | Socket.io</p>
+                    <p class="project-description">Jeu d'échecs avec trois modes : solo, multijoueur temps réel, et IA. Implémentation complète des règles d'échecs, système de notation, historique des parties, et algorithme minimax pour l'IA.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title">CONTACT</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="m4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                        <polyline points="22,6 12,13 2,6"/>
+                    </svg>
+                    <h3>EMAIL</h3>
+                    <p>saidamokranebelgacem@gmail.com</p>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                    </svg>
+                    <h3>PHONE</h3>
+                    <p>+213 78 273 4398</p>
+                </div>
+                <div class="contact-item">
+                    <svg class="contact-icon" viewBox="0 0 24 24">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                    <h3>LOCATION</h3>
+                    <p>ORAN, ALGERIA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 SAÏD AMOKRANE BELGACEM - ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerOffset = 80;
+                    const elementPosition = target.getBoundingClientRect().top;
+                    const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Terminal-like typing effect
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Initialize on load
+        window.addEventListener('load', function() {
+            // Remove cursor after animations
+            setTimeout(() => {
+                const cursor = document.querySelector('.cursor');
+                if (cursor) cursor.style.display = 'none';
+            }, 3000);
+        });
+
+        // Add terminal-like interactions
+        document.addEventListener('keydown', function(e) {
+            // Add some terminal-like easter eggs
+            if (e.ctrlKey && e.key === 'c') {
+                e.preventDefault();
+                console.log('Process interrupted by user');
+            }
+        });
+    </script>
+</body>
+</html>
